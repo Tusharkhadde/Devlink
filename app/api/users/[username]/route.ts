@@ -3,9 +3,10 @@ import { getUser } from "@/libs/db";
 
 export async function GET(
   req: Request,
-  { params }: { params: { username: string } }
+  { params }: { params: Promise<{ username: string }> }
 ) {
-  const user = getUser(params.username);
+  const { username } = await params;
+  const user = getUser(username);
 
   if (!user) {
     return NextResponse.json(

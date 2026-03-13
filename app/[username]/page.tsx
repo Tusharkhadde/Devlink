@@ -5,8 +5,9 @@ type Props = {
   params: { username: string };
 };
 
-export default function Profile({ params }: Props) {
-  const user = getUser(params.username);
+export default async function Profile({ params }: Props) {
+  const { username } = await params;
+  const user = getUser(username);
 
   if (!user) return notFound();
 
